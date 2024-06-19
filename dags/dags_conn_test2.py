@@ -1,14 +1,15 @@
 from airflow import DAG
+# pendulum : datetime 모듈을 쉽게 쓰기 위해서
 import pendulum
 from airflow.operators.empty import EmptyOperator
 
 with DAG(
     dag_id="dags_conn_test1",
     schedule=None,
-    start_date=pendulum.datetime(2024, 6, 14, tz="Asia/Seoul"),
+    start_date=pendulum.datetime(2024, 6, 16, tz="Asia/Seoul"),
     catchup=False
 ) as dag:
-
+    
     t1 = EmptyOperator(
         task_id="t1"
     )
@@ -28,7 +29,7 @@ with DAG(
     t5 = EmptyOperator(
         task_id="t5"
     )
-
+    
     t6 = EmptyOperator(
         task_id="t6"
     )
@@ -41,8 +42,3 @@ with DAG(
         task_id="t8"
     )
 
-
-    t1 >> [t2,t3]
-    [t3,t5] >> t4
-    [t4,t7] >> t6
-    t6 >> t8
